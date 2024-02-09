@@ -1,0 +1,56 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+table{
+    margin:auto;
+}
+td{
+    font-size: large;
+    background-color: aqua;
+    
+    border: 1px solid white;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+    /* background-color: ; */
+    
+}
+td.hidden:hover{
+    background-color: rgb(58, 89, 79);
+}
+
+
+.cell{
+   color: rgb(34, 58, 59);
+    
+}
+
+.hidden{
+    background-color: black;
+    color: rgba(240, 248, 255, 0);
+}
+
+.flag{
+    background-color: black;
+}
+
+.timer{
+    margin: 10px;
+}
+.lives{
+    margin: 10px;
+    font-size: large;
+
+}
+
+.smili{
+    background-color: rgba(129, 79, 79, 0);
+    font-size: 50px;
+}
+
+.fotter{
+    color:brown;
+}

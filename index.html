@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MineSweeper</title>
+
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body onload="onInit()" oncontextmenu="return false">
+    <h1 onclick="">Mine Sweeper</h1>
+
+    <div>
+        <div class="game-mod">
+            <button onclick="setGameLevel(this)">easy</button>
+            <button onclick="setGameLevel(this)">medium</button>
+            <button onclick="setGameLevel(this)">hard</button>
+        </div>
+        <div class="timer-conteiner">
+            <div class="timer"></div>
+        </div>
+        <div><button class="smili" onclick="onEmojiClicked()"></button></div>
+        <div class="lives"><span></span></div>
+    </div>
+    <table>
+        <tbody>
+        </tbody>
+    </table>
+
+    <div class="fotter">by Meni.Kramer</div>
+    <script src="js/util.js"></script>
+    <script src="js/cell.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
