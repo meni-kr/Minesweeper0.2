@@ -4,16 +4,16 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     text-align: center;
 }
-table{
-    margin:auto;
+
+table {
+    margin: auto;
     border: 1px solid white;
     background-color: blanchedalmond;
-
 }
-td{
+
+td {
     font-size: large;
     background-color: rgb(27, 27, 27);
-    
     border: 1px solid rgb(0, 255, 17);
     padding: 5px;
     width: 40px;
@@ -22,55 +22,54 @@ td{
     background-repeat: no-repeat;
 }
 
-td button{
+td button {
     width: 40px;
     height: 40px;
     background-color: gray;
 }
 
-td.hidden:hover{
+td :hover {
     background-color: rgb(58, 89, 79);
 }
 
-
-.cell{
-   color: rgb(160, 61, 149);
-    
+.cell {
+    color: rgb(160, 61, 149);
 }
 
-/* .hidden{
-    background-color: black;
-    color: rgba(240, 248, 255, 0);
-} */
-
-
-.flag{
+.flag {
     background-color: black;
 }
 
-.timer{
+.timer {
     margin: 10px;
 }
-.lives{
+
+.lives {
     margin: 10px;
     font-size: large;
-
 }
 
-.smili{
+.smili {
     background-color: rgba(129, 79, 79, 0);
     font-size: 50px;
+    border-radius: 25%;
 }
-.hints{
+
+.hints {
     width: 300px;
     height: 30px;
     margin: auto;
     padding-top: 15px;
 }
-:hover{
+
+.is-safe {
+    background-color: deeppink;
+}
+
+:hover {
     cursor: pointer;
 }
 
-.fotter{
-    color:brown;
+.fotter {
+    color: brown;
 }

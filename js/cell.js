@@ -15,14 +15,14 @@ function onCellClicked(eve, elCell, currI, currJ) {
         }
         return
     }
-
-    if(gIsHint){
-        onCellAfterHint(currI,currJ)
-        setTimeout(()=>{onCellAfterHint(currI,currJ)},1000)
-        gIsHint=false
+    if (gIsHint) {
+        onCellAfterHint(currI, currJ)
+        setTimeout(() => {
+            gIsHint = false
+            onCellAfterHint(currI, currJ)
+        }, 1000)
         return
     }
-
     if (leftClick && !gBoard[currI][currJ].isShown && !gBoard[currI][currJ].isMarked) {
         onMouseLeft(currI, currJ)
         return
@@ -36,7 +36,6 @@ function onCellClicked(eve, elCell, currI, currJ) {
 function onMouseLeft(i, j) {
     if (gBoard[i][j].isMine) {
         checkLoseGame()
-        
     } else if (!gBoard[i][j].minesAround) {
         revelCell(i, j)
         expandShown(i, j)
@@ -52,7 +51,6 @@ function onMouseRight(elCell, i, j) {
 }
 
 function onCellMarked(elCell, i, j) {
-
     if (!gBoard[i][j].isMarked) {
         gBoard[i][j].isMarked = true
         elCell.innerText = FLAG
@@ -61,36 +59,61 @@ function onCellMarked(elCell, i, j) {
         return
     } else if (gBoard[i][j].isMine) {
         gBoard[i][j].isMarked = false
-        elCell.innerHTML=`<button></button>`
-        // elCell.innerText = MINE
+        elCell.innerHTML = `<button></button>`
         gGame.markedCount--
         return
     } else {
         gBoard[i][j].isMarked = false
-        elCell.innerHTML=`<button></button>`
-        // elCell.innerText = gBoard[i][j].minesAround
+        elCell.innerHTML = `<button></button>`
         gGame.markedCount--
         return
     }
 }
 
-function onCellAfterHint(cellI,cellJ){
+function onCellAfterHint(cellI, cellJ) {
     for (var i = cellI - 1; i <= cellI + 1; i++) {
         if (i < 0 || i >= gBoard.length) continue
         for (var j = cellJ - 1; j <= cellJ + 1; j++) {
             if (j < 0 || j >= gBoard[i].length) continue
             if (!gBoard[i][j].isShown && !gBoard[i][j].isMarked) {
-                toggleCellHint(i, j)
+                if (gIsHint) showCellHint(i, j)
+                else closeCellHint(i, j)
             }
         }
     }
 }
 
-function toggleCellHint(cellI, cellJ) {
-    const elCell = document.querySelector(`[data-i="${cellI}"][data-j="${cellJ}"]`)
-    elCell.classList.toggle('hidden')
+function showCellHint(cellI, cellJ) {
+    const elBtn = document.querySelector(`[data-i="${cellI}"][data-j="${cellJ}"]`)
+    elBtn.innerHTML = (gBoard[cellI][cellJ].isMine) ? `<span>💣</span>` : `<span>${gBoard[cellI][cellJ].minesAround}</span>`
 }
 
-function safeClicks(){
-    
+function closeCellHint(cellI, cellJ) {
+    const elBtn = document.querySelector(`[data-i="${cellI}"][data-j="${cellJ}"]`)
+    elBtn.innerHTML = `<button></button>`
+}
+
+function safeClicks(btn) {
+    if (!gGame.isOn) return
+    if (!gGame.safeClicks) return
+    var count = 0
+    gGame.safeClicks--
+    btn.innerText = `you have: ${gGame.safeClicks} safe clicks`
+    var foundSafeCell = false
+    while (!foundSafeCell) {
+        var i = getRandomInt(0, gLevel.SIZE)
+        var j = getRandomInt(0, gLevel.SIZE)
+        count++
+        if (count === gLevel.SIZE * gLevel.SIZE * gLevel.SIZE) {
+            document.querySelector(`.safe-clicks`).innerText = 'there no safe place'
+            return
+        }
+        if (gBoard[i][j].isShown || gBoard[i][j].isMine) continue
+        const elBtn = document.querySelector(`[data-i="${i}"][data-j="${j}"] button`)
+        elBtn.classList.add('is-safe')
+        foundSafeCell = true
+        setTimeout(() => {
+            elBtn.classList.remove('is-safe')
+        }, 700)
+    }
 }
