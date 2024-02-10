@@ -61,12 +61,14 @@ function onCellMarked(elCell, i, j) {
         return
     } else if (gBoard[i][j].isMine) {
         gBoard[i][j].isMarked = false
-        elCell.innerText = MINE
+        elCell.innerHTML=`<button></button>`
+        // elCell.innerText = MINE
         gGame.markedCount--
         return
     } else {
         gBoard[i][j].isMarked = false
-        elCell.innerText = gBoard[i][j].minesAround
+        elCell.innerHTML=`<button></button>`
+        // elCell.innerText = gBoard[i][j].minesAround
         gGame.markedCount--
         return
     }
