@@ -27,14 +27,20 @@ function setMinesNegsCount(board) {
 
 function onEmojiClicked() {
     gGame.isOn = false
-    
     onInit()
+}
+
+function onHintClick(elSpan){
+    if(!gGame.isOn)return
+    gIsHint=true
+    elSpan.innerText=''
+
 }
 
 function showLives() {
     const elSpan = document.querySelector('.lives span')
     var innerText = ''
-    for (var i = 0; i <= gGame.lives ; i++) {
+    for (var i = 1; i <= gGame.lives ; i++) {
         innerText += '💓'
         // innerText += '<img src="/img/heart.png" alt="💓">'
     }

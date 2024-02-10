@@ -9,12 +9,20 @@ function onCellClicked(eve, elCell, currI, currJ) {
         gGame.isOn = true
         onInit(currI, currJ)
         revelCell(currI, currJ)
+        startTimer()
         if (!gBoard[currI][currJ].minesAround) {
             expandShown(currI, currJ)
         }
-        console.log(gGame.shownCount);
         return
     }
+
+    if(gIsHint){
+        onCellAfterHint(currI,currJ)
+        setTimeout(()=>{onCellAfterHint(currI,currJ)},1000)
+        gIsHint=false
+        return
+    }
+
     if (leftClick && !gBoard[currI][currJ].isShown && !gBoard[currI][currJ].isMarked) {
         onMouseLeft(currI, currJ)
         return
@@ -26,11 +34,6 @@ function onCellClicked(eve, elCell, currI, currJ) {
 }
 
 function onMouseLeft(i, j) {
-    console.log('left');
-    console.log(gGame.shownCount);
-    console.log(gGame.markedCount);
-    console.log(gLevel.MINES);
-    
     if (gBoard[i][j].isMine) {
         checkLoseGame()
         
@@ -46,10 +49,6 @@ function onMouseLeft(i, j) {
 function onMouseRight(elCell, i, j) {
     onCellMarked(elCell, i, j)
     showAndHide(elCell)
-    console.log('right');
-    console.log(gGame.shownCount);
-    console.log(gGame.markedCount);
-    console.log(gLevel.MINES);
 }
 
 function onCellMarked(elCell, i, j) {
@@ -71,4 +70,25 @@ function onCellMarked(elCell, i, j) {
         gGame.markedCount--
         return
     }
+}
+
+function onCellAfterHint(cellI,cellJ){
+    for (var i = cellI - 1; i <= cellI + 1; i++) {
+        if (i < 0 || i >= gBoard.length) continue
+        for (var j = cellJ - 1; j <= cellJ + 1; j++) {
+            if (j < 0 || j >= gBoard[i].length) continue
+            if (!gBoard[i][j].isShown && !gBoard[i][j].isMarked) {
+                toggleCellHint(i, j)
+            }
+        }
+    }
+}
+
+function toggleCellHint(cellI, cellJ) {
+    const elCell = document.querySelector(`[data-i="${cellI}"][data-j="${cellJ}"]`)
+    elCell.classList.toggle('hidden')
+}
+
+function safeClicks(){
+    
 }
